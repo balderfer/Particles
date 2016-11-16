@@ -1,0 +1,150 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Particle.js</title>
+  <script src="build/particle.js"></script>
+  <script src="main.js"></script>
+  <style>
+    html, body, canvas {
+      padding: 0;
+      margin: 0;
+    }
+    #canvas button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
+    .codearea {
+      display: block;
+    }
+    .codearea textarea, .codearea p {
+      display: inline-block;
+    }
+  </style>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-61180804-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+</head>
+<body>
+  <div id="form">
+    <label for="behavior">Presets:</label>
+    <button onclick="selectPreset('ocean')">Ocean</button>
+    <button onclick="selectPreset('blackhole')">Black Hole</button>
+    <button onclick="selectPreset('sinwave')">Sin Wave</button>
+    <br>
+    <div class="codearea">
+      <textarea name="behavior" id="behavior" cols="50" rows="40" style="font-family: monospace;">
+{
+  pathType: 'multivariate',
+  baseX: 500,
+  baseY: 500,
+  path: function(t) {
+    t = t % 10;
+    if (t < 2.5) {
+      return [10, 0];
+    } else if (t < 5) {
+      return [0, 10];
+    } else if (t < 7.5) {
+      return [-10, 0];
+    } else {
+      return [0, -10];
+    }
+    var y = 0;
+    var x = t;
+    return [x, y];
+  },
+  speed: function() {
+    return 0 + (Math.random() * 1);
+  },
+  offset: function() {
+    return (Math.random() * 3) - 1.5;
+  },
+  backgroundColor: 'rgba(52, 152, 219, 1.0)',
+  color: function() {
+    var rn = Math.random();
+    if (rn < 0.2) {
+      return 'rgba(255, 255, 255, 1.0)';
+    } else if (rn < 0.4) {
+      return 'rgba(255, 255, 255, 0.6)';
+    } else if (rn < 0.6) {
+      return 'rgba(41, 128, 185,1.0)';
+    } else if (rn < 0.8) {
+      return 'rgba(26, 188, 156,1.0)';
+    } else {
+      return 'rgba(46, 204, 113,1.0)';
+    }
+  },
+  size: 3,
+  count: 100,
+  placement: 'linear'
+}
+      </textarea>
+      <textarea readonly cols="50" rows="40" style="font-family: monospace; opacity: 0.5;">
+// EXAMPLE CONFIGURATION
+{
+  
+  // path() function defines the path
+  // the particle follows
+  path: function(x) {
+    var y = 50 * Math.sin(x / 100);
+    return y;
+  },
+
+  // speed() calculates a one time
+  // constant speed that determines
+  // the incrementation rate of x
+  speed: function() {
+    return 2 + (Math.random() * 4);
+  },
+
+  // offset() generates a percentage (decimal)
+  // that spreads the particles out over
+  // the canvas
+  offset: function() {
+    return (Math.random() * 3) - 1.5;
+  },
+
+  // defines the background color
+  backgroundColor: 'rgba(52, 152, 219, 1.0)',
+
+  // color() is called once for each particle
+  // to generate their color
+  color: function() {
+    var rn = Math.random();
+    if (rn < 0.5) {
+      return 'rgba(255, 255, 255, 1.0)';
+    } else {
+      return 'rgba(46, 204, 113,1.0)';
+    }
+  },
+
+  // size of each particle
+  size: 3,
+
+  // number of particles
+  count: 5000,
+
+  // ¯\_(ツ)_/¯
+  placement: 'random'
+}
+      </textarea>
+    </div>
+    <br>
+    <button onclick="submitBehavior()">Run it!</button>
+  </div>
+  <div id="canvas" style="display: none;">
+    <button onclick="returnToMenu()">Go back</button>
+    <canvas id="particles"></canvas>
+  </div>
+</body>
+</html>
